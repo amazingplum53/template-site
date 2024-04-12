@@ -33,7 +33,7 @@ services:
       dockerfile: gunicorn.dockerfile
     expose:
       - 8000
-    entrypoint: gunicorn
+    entrypoint: ["gunicorn"]
     command: ["wsgi:app", "--chdir", "/var/www/", "-c", "gunicorn.config.py"]
 
 volumes:
