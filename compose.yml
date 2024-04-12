@@ -24,7 +24,7 @@ services:
     volumes:
       - encrypt:/etc/letsencrypt
       - challenge:/var/www/certbot  
-    entrypoint: /bin/bash
+    entrypoint: ["/bin/bash"]
     command: ["/var/renew.sh"]
 
   gunicorn:
