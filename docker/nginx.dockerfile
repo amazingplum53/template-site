@@ -6,3 +6,4 @@ COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
 COPY nginx/controller.sh /var/
 
+RUN chmod +x /node/execure.sh
