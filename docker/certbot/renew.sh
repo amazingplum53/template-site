@@ -1,3 +1,5 @@
+#!/bin/bash
+
 
 state=$(< /etc/letsencrypt/state.txt)
 

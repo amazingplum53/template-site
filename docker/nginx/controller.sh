@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 
 while [[ $(< /letsencrypt/state.txt) == "temp" ]]; 
