@@ -2,7 +2,7 @@
 services:
   nginx:
     build: 
-      context: ./nginx/
+      context: https://github.com/amazingplum53/docker_compose.git#master:docker
       dockerfile: nginx.dockerfile
     hostname: matthewhill.click
     ports:
@@ -19,15 +19,17 @@ services:
 
   certbot:
     build: 
-      context: ./certbot/
+      context: https://github.com/amazingplum53/docker_compose.git#master:docker
       dockerfile: certbot.dockerfile
     volumes:
       - encrypt:/etc/letsencrypt
       - challenge:/var/www/certbot  
+    entrypoint: /bin/bash
+    command: ["/var/renew.sh"]
 
   gunicorn:
     build:
-      context: ./gunicorn
+      context: https://github.com/amazingplum53/docker_compose.git#master:docker
       dockerfile: gunicorn.dockerfile
     expose:
       - 8000

@@ -2,11 +2,11 @@ FROM certbot/certbot
 
 WORKDIR /etc/letsencrypt/
 
-COPY openssl.cnf ./
+COPY certbot/openssl.cnf ./
 
-COPY renew.sh /var/
+COPY certbot/renew.sh /var/
 
-COPY ./compare.py /var/
+COPY certbot/compare.py /var/
 
 RUN mkdir /etc/letsencrypt/live/ /etc/letsencrypt/live/matthewhill.click/ 
 
@@ -19,6 +19,4 @@ RUN apk add bash python3
 
 RUN echo "temp" > /etc/letsencrypt/state.txt
 
-ENTRYPOINT [ "/bin/bash" ]
 
-CMD [ "/var/renew.sh" ]
