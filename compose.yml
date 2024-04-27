@@ -1,7 +1,7 @@
 
 services:
   nginx:
-    image: amazingplum/nginx:latest
+    image: amazingplum/docker_compose-nginx:latest
     build: 
       context: https://github.com/amazingplum53/docker_compose.git#master:docker
       dockerfile: nginx.dockerfile
@@ -19,7 +19,7 @@ services:
     command: ["nginx -c /etc/nginx/nginx.conf -g 'daemon off;' & /var/controller.sh"]
 
   certbot:
-    image: amazingplum/certbot:latest
+    image: amazingplum/docker_compose-certbot:latest
     build: 
       context: https://github.com/amazingplum53/docker_compose.git#master:docker
       dockerfile: certbot.dockerfile
@@ -30,7 +30,7 @@ services:
     command: ["/var/renew.sh"]
 
   gunicorn:
-    image: amazingplum/gunicorn:latest
+    image: amazingplum/docker_compose-gunicorn:latest
     build:
       context: https://github.com/amazingplum53/docker_compose.git#master:docker
       dockerfile: gunicorn.dockerfile
