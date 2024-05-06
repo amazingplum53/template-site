@@ -6,12 +6,6 @@ do
     sleep 1 && echo "..."; 
 done 
 
-/usr/sbin/nginx -s reload 
+/usr/sbin/nginx -s stop 
 
 echo "Certbot certificate recieved" 
-
-while :; 
-do 
-    sleep 12h & wait; 
-    /usr/sbin/nginx -s reload; 
-done

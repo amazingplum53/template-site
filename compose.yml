@@ -1,5 +1,34 @@
 
 services:
+  handshake:
+    image: amazingplum/docker_compose-nginx:latest
+    build: 
+      context: https://github.com/amazingplum53/docker_compose.git#master:docker
+      dockerfile: nginx.dockerfile
+    hostname: matthewhill.click
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - encrypt:/letsencrypt
+      - challenge:/var/www/certbot
+      - static:/static
+    entrypoint: ["bash", "-c"]
+    command: ["nginx -c /etc/nginx/nginx.conf -g 'daemon off;' & /var/handshake.sh"]
+
+  certbot:
+    image: amazingplum/docker_compose-certbot:latest
+    build: 
+      context: https://github.com/amazingplum53/docker_compose.git#master:docker
+      dockerfile: certbot.dockerfile
+    volumes:
+      - encrypt:/etc/letsencrypt
+      - challenge:/var/www/certbot  
+    depends_on:
+      - handshake 
+    entrypoint: ["/bin/bash"]
+    command: ["/var/renew.sh"]
+
   nginx:
     image: amazingplum/docker_compose-nginx:latest
     build: 
@@ -14,20 +43,9 @@ services:
       - challenge:/var/www/certbot
       - static:/static
     depends_on:
-      - certbot
+      - handshake
     entrypoint: ["bash", "-c"]
-    command: ["nginx -c /etc/nginx/nginx.conf -g 'daemon off;' & /var/controller.sh"]
-
-  certbot:
-    image: amazingplum/docker_compose-certbot:latest
-    build: 
-      context: https://github.com/amazingplum53/docker_compose.git#master:docker
-      dockerfile: certbot.dockerfile
-    volumes:
-      - encrypt:/etc/letsencrypt
-      - challenge:/var/www/certbot  
-    entrypoint: ["/bin/bash"]
-    command: ["/var/renew.sh"]
+    command: ["nginx -c /etc/nginx/nginx.conf -g 'daemon off;'"]
 
   gunicorn:
     image: amazingplum/docker_compose-gunicorn:latest
@@ -44,3 +62,6 @@ volumes:
   encrypt:
   static: 
 
+#amazingplum/docker_compose-nginx:latest
+#amazingplum/docker_compose-certbot:latest
+#amazingplum/docker_compose-gunicorn:latest

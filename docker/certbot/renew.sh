@@ -33,11 +33,3 @@ else
 
 fi
 
-while : 
-do 
-    sleep 24h & wait;
-    certbot renew;
-    timestamp=$(date +"%D %T"); 
-    echo "$timestamp" > /etc/letsencrypt/state.txt 
-done
-
