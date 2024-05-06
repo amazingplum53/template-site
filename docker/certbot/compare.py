@@ -5,9 +5,9 @@ from sys import argv
 
 def day_difference(string1, string2, time_frame = 86400):
 
-    date1 = datetime.strptime(string1, "%d/%m/%y %H:%M:%S")
+    date1 = datetime.strptime(string1, "%m/%d/%y %H:%M:%S")
 
-    date2 = datetime.strptime(string2, "%d/%m/%y %H:%M:%S")
+    date2 = datetime.strptime(string2, "%m/%d/%y %H:%M:%S")
 
     difference = (date2 - date1).total_seconds()
 
