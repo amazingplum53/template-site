@@ -1,6 +1,6 @@
 
 services:
-  handshake:
+  verify:
     image: amazingplum/docker_compose-nginx:latest
     build: 
       context: https://github.com/amazingplum53/docker_compose.git#master:docker
@@ -8,13 +8,14 @@ services:
     hostname: matthewhill.click
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - encrypt:/letsencrypt
       - challenge:/var/www/certbot
       - static:/static
+    depends_on:
+      - gunicorn 
     entrypoint: ["bash", "-c"]
-    command: ["nginx -c /etc/nginx/nginx.conf -g 'daemon off;' & /var/handshake.sh"]
+    command: ["nginx -c /etc/nginx/http.conf -g 'daemon off;' & /var/handshake.sh"]
 
   certbot:
     image: amazingplum/docker_compose-certbot:latest
@@ -25,7 +26,7 @@ services:
       - encrypt:/etc/letsencrypt
       - challenge:/var/www/certbot  
     depends_on:
-      - handshake 
+      - verify 
     entrypoint: ["/bin/bash"]
     command: ["/var/renew.sh"]
 
@@ -42,10 +43,8 @@ services:
       - encrypt:/letsencrypt
       - challenge:/var/www/certbot
       - static:/static
-    depends_on:
-      - handshake
     entrypoint: ["bash", "-c"]
-    command: ["nginx -c /etc/nginx/nginx.conf -g 'daemon off;'"]
+    command: ["nginx -c /etc/nginx/https.conf -g 'daemon off;'"]
 
   gunicorn:
     image: amazingplum/docker_compose-gunicorn:latest
