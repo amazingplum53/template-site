@@ -4,6 +4,6 @@ WORKDIR /etc/nginx/
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
-COPY nginx/controller.sh /var/
+COPY nginx/handshake.sh /var/
 
 RUN chmod +x /var/handshake.sh
