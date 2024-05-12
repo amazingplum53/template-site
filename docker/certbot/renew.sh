@@ -21,6 +21,8 @@ if [[ $state == "temp" ]]; then
 
         echo "$dry_run"
 
+        exit 1;
+
     fi
 
 elif [[ $(python3 /var/compare.py "${state}" "${current_time}") == True ]]; then
