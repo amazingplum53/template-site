@@ -13,7 +13,7 @@ if [[ $state == "temp" ]]; then
 
         rm -rf /etc/letsencrypt/live/matthewhill.click/
 
-        certbot certonly -n -d matthewhill.click -w /var/www/certbot --webroot --email matthewpaulh@hotmail.co.uk --agree-tos --preferred-challenges http-01
+        certbot certonly -n -d matthewhill.click -w /var/www/certbot --webroot --email matthewpaulh@hotmail.co.uk --agree-tos --preferred-challenges http-01 --http-01-port 30080
 
         echo "${current_time}" > /etc/letsencrypt/state.txt;
 
