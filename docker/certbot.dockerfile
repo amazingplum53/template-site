@@ -10,5 +10,5 @@ RUN apk add bash python3
 
 RUN echo "temp" > /etc/letsencrypt/state.txt
 
-RUN chmod +x /var/compare.py
+RUN chmod +x /var/renew.py
 
