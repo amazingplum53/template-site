@@ -1,6 +1,6 @@
 
 services:
-  verify:
+  http:
     image: amazingplum/docker_compose-nginx:latest
     build: 
       context: https://github.com/amazingplum53/docker_compose.git#master:docker
@@ -15,7 +15,7 @@ services:
     depends_on:
       - gunicorn 
     entrypoint: ["bash", "-c"]
-    command: ["nginx -c /etc/nginx/http.conf -g 'daemon off;' & /var/handshake.sh"]
+    command: ["nginx -c /etc/nginx/http.conf -g 'daemon off;'"]
 
   certbot:
     image: amazingplum/docker_compose-certbot:latest
@@ -30,7 +30,7 @@ services:
     entrypoint: ["/bin/bash"]
     command: ["/var/renew.sh"]
 
-  nginx:
+  https:
     image: amazingplum/docker_compose-nginx:latest
     build: 
       context: https://github.com/amazingplum53/docker_compose.git#master:docker
