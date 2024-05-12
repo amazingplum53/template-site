@@ -26,7 +26,7 @@ services:
       - encrypt:/etc/letsencrypt
       - challenge:/var/www/certbot  
     depends_on:
-      - verify 
+      - http 
     entrypoint: ["/bin/bash"]
     command: ["/var/renew.sh"]
 
