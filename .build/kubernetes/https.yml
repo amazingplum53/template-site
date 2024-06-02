@@ -1,0 +1,46 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: https-deploy
+  labels: 
+    app: https
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: https
+  template:
+    metadata:
+      labels:
+        app: https
+    spec:
+      initContainers:
+        - name: certbot
+          image: amazingplum/docker_compose-certbot
+          command: ["bash", "-c"]
+          args: ["/var/renew.sh"]
+          volumeMounts:
+            - name: challenge
+              mountPath: /var/www/certbot 
+            - name: encrypt
+              mountPath: /letsencrypt
+      containers:
+      - name: https
+        image: amazingplum/docker_compose-nginx
+        ports:
+          - containerPort: 443
+            hostPort: 443
+            protocol: TCP
+        command: ["bash", "-c"]
+        args: ["nginx -c /etc/nginx/https.conf -g 'daemon off;'"]
+        volumeMounts:
+          - name: encrypt
+            mountPath: /letsencrypt
+      volumes:
+      - name: encrypt
+        persistentVolumeClaim:
+          claimName: encrypt
+      - name: challenge
+        persistentVolumeClaim:
+          claimName: challenge

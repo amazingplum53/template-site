@@ -1,0 +1,33 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-deploy
+  labels: 
+    app: http
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: http
+  template:
+    metadata:
+      labels:
+        app: http
+    spec:
+      containers:
+        - name: http
+          image: amazingplum/docker_compose-nginx
+          ports:
+            - containerPort: 80
+              hostPort: 80
+              protocol: TCP
+          command: ["bash", "-c"]
+          args: ["nginx -c /etc/nginx/http.conf -g 'daemon off;'"]
+          volumeMounts:
+            - name: challenge
+              mountPath: /var/www/certbot 
+      volumes:
+      - name: challenge
+        persistentVolumeClaim:
+          claimName: challenge

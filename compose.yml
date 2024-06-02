@@ -1,9 +1,9 @@
 
 services:
-  http:
+  nginx:
     image: amazingplum/docker_compose-nginx:latest
     build: 
-      context: https://github.com/amazingplum53/docker_compose.git#master:docker
+      context: https://github.com/amazingplum53/docker_compose.git#master:.docker
       dockerfile: nginx.dockerfile
     hostname: matthewhill.click
     ports:
@@ -20,36 +20,18 @@ services:
   certbot:
     image: amazingplum/docker_compose-certbot:latest
     build: 
-      context: https://github.com/amazingplum53/docker_compose.git#master:docker
+      context: https://github.com/amazingplum53/docker_compose.git#master:.docker
       dockerfile: certbot.dockerfile
     volumes:
       - encrypt:/etc/letsencrypt
       - challenge:/var/www/certbot  
-    depends_on:
-      - http 
-    entrypoint: ["/bin/bash"]
-    command: ["/var/renew.sh"]
-
-  https:
-    image: amazingplum/docker_compose-nginx:latest
-    build: 
-      context: https://github.com/amazingplum53/docker_compose.git#master:docker
-      dockerfile: nginx.dockerfile
-    hostname: matthewhill.click
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - encrypt:/letsencrypt
-      - challenge:/var/www/certbot
-      - static:/static
-    entrypoint: ["bash", "-c"]
-    command: ["nginx -c /etc/nginx/https.conf -g 'daemon off;'"]
+    entrypoint: ["/bin/bash", "-c"]
+    command: ["tail -f /dev/null"]
 
   gunicorn:
     image: amazingplum/docker_compose-gunicorn:latest
     build:
-      context: https://github.com/amazingplum53/docker_compose.git#master:docker
+      context: https://github.com/amazingplum53/docker_compose.git#master:.docker
       dockerfile: gunicorn.dockerfile
     expose:
       - 8000

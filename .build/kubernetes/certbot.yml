@@ -1,0 +1,27 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: example-job
+spec:
+  template:
+    metadata:
+      name: example-job
+    spec:
+      containers:
+        - name: certbot
+          image: amazingplum/docker_compose-certbot
+          command: ["tail", "-f", "/dev/null"]
+          volumeMounts:
+            - name: challenge
+              mountPath: /var/www/certbot 
+            - name: encrypt
+              mountPath: /letsencrypt
+      restartPolicy: Never
+      volumes:
+      - name: encrypt
+        persistentVolumeClaim:
+          claimName: encrypt
+      - name: challenge
+        persistentVolumeClaim:
+          claimName: challenge

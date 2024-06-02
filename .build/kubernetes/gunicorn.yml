@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gunicorn-deploy
+  labels: 
+    app: gunicorn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gunicorn
+  template:
+    metadata:
+      labels:
+        app: gunicorn
+    spec:
+      containers:
+      - name: gunicorn
+        image: amazingplum/docker_compose-gunicorn
+        ports:
+          - containerPort: 8000
+            hostPort: 8000
+            protocol: TCP
+        command: ["gunicorn"]
+        args: ["wsgi:app", "--chdir", "/var/www/", "-c", "gunicorn.config.py"]
