@@ -12,10 +12,6 @@ services:
       - encrypt:/letsencrypt
       - challenge:/var/www/certbot
       - static:/static
-    depends_on:
-      - gunicorn 
-    entrypoint: ["bash", "-c"]
-    command: ["nginx -c /etc/nginx/http.conf -g 'daemon off;'"]
 
   certbot:
     image: amazingplum/docker_compose-certbot:latest
@@ -25,18 +21,12 @@ services:
     volumes:
       - encrypt:/etc/letsencrypt
       - challenge:/var/www/certbot  
-    entrypoint: ["/bin/bash", "-c"]
-    command: ["tail -f /dev/null"]
-
+      
   gunicorn:
     image: amazingplum/docker_compose-gunicorn:latest
     build:
       context: https://github.com/amazingplum53/docker_compose.git#master:.docker
       dockerfile: gunicorn.dockerfile
-    expose:
-      - 8000
-    entrypoint: ["gunicorn"]
-    command: ["wsgi:app", "--chdir", "/var/www/", "-c", "gunicorn.config.py"]
 
 volumes:
   challenge:

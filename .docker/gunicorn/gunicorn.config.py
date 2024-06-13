@@ -5,7 +5,7 @@ from os import environ
 
 max_workers = cpu_count
 
-bind = '0.0.0.0:' + environ.get('PORT', '8000')
+bind = '0.0.0.0:' + environ.get('PORT', '8001')
 
 max_requests = 1000
 

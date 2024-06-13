@@ -12,3 +12,7 @@ RUN echo "temp" > /etc/letsencrypt/state.txt
 
 RUN chmod +x /var/renew.sh
 
+ENTRYPOINT ["bash", "-c"]
+
+CMD ["nginx -c /etc/nginx/http.conf -g 'daemon off;'"]
+
