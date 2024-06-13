@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: https-deploy
+  name: https
   labels: 
     app: https
 spec:
