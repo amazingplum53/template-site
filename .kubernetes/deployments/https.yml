@@ -30,7 +30,6 @@ spec:
         image: amazingplum/docker_compose-nginx
         ports:
           - containerPort: 443
-            hostPort: 8443
             protocol: TCP
         command: ["bash", "-c"]
         args: ["nginx -c /etc/nginx/https.conf -g 'daemon off;'"]
