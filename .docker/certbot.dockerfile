@@ -14,5 +14,5 @@ RUN chmod +x /var/renew.sh
 
 ENTRYPOINT ["bash", "-c"]
 
-CMD ["nginx -c /etc/nginx/http.conf -g 'daemon off;'"]
+CMD ["/var/renew.sh"]
 
