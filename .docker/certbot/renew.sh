@@ -23,7 +23,7 @@ if [[ $state == "temp" ]]; then
 
         echo "$dry_run" > /var/www/certbot/debug.txt
 
-        exit 1;
+        #exit 1;
 
     fi
 
