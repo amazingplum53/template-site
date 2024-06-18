@@ -40,11 +40,9 @@ spec:
           requests:
             memory: "64Mi"
             cpu: "100m"
-            storage: "3Gi"
           limits:
             memory: "2Gi"
             cpu: "1"
-            storage: "5Gi"
       volumes:
       - name: encrypt
         persistentVolumeClaim:
