@@ -16,26 +16,35 @@ spec:
         app: https
     spec:
       initContainers:
-        - name: certbot
-          image: amazingplum/docker_compose-certbot
-          command: ["bash", "-c"]
-          args: ["/var/renew.sh"]
-          volumeMounts:
-            - name: challenge
-              mountPath: /var/www/certbot 
-            - name: encrypt
-              mountPath: /letsencrypt
+      - name: certbot
+        image: amazingplum/docker_compose-certbot
+        command: ["bash", "-c"]
+        args: ["/var/renew.sh"]
+        volumeMounts:
+        - name: challenge
+          mountPath: /var/www/certbot 
+        - name: encrypt
+          mountPath: /letsencrypt
       containers:
       - name: https
         image: amazingplum/docker_compose-nginx
-        ports:
-          - containerPort: 443
-            protocol: TCP
         command: ["bash", "-c"]
         args: ["nginx -c /etc/nginx/https.conf -g 'daemon off;'"]
+        ports:
+        - containerPort: 443
+          protocol: TCP
         volumeMounts:
-          - name: encrypt
-            mountPath: /letsencrypt
+        - name: encrypt
+          mountPath: /letsencrypt
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+            storage: "3Gi"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+            storage: "5Gi"
       volumes:
       - name: encrypt
         persistentVolumeClaim:

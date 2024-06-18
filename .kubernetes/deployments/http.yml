@@ -16,16 +16,25 @@ spec:
         app: http
     spec:
       containers:
-        - name: http
-          image: amazingplum/docker_compose-nginx
-          ports:
-            - containerPort: 80
-              protocol: TCP
-          command: ["bash", "-c"]
-          args: ["nginx -c /etc/nginx/http.conf -g 'daemon off;'"]
-          volumeMounts:
-            - name: challenge
-              mountPath: /var/www/certbot 
+      - name: http
+        image: amazingplum/docker_compose-nginx
+        command: ["bash", "-c"]
+        args: ["nginx -c /etc/nginx/https.conf -g 'daemon off;'"]
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+        - name: challenge
+          mountPath: /var/www/certbot 
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+            storage: "3Gi"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+            storage: "5Gi"
       volumes:
       - name: challenge
         persistentVolumeClaim:

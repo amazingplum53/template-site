@@ -18,7 +18,5 @@ spec:
       - name: gunicorn
         image: amazingplum/docker_compose-gunicorn
         ports:
-          - containerPort: 8001
-            protocol: TCP
-        command: ["gunicorn"]
-        args: ["wsgi:app", "--chdir", "/var/www/", "-c", "gunicorn.config.py"]
+        - containerPort: 8001
+          protocol: TCP

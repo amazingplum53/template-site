@@ -25,3 +25,4 @@ spec:
       - name: challenge
         persistentVolumeClaim:
           claimName: challenge
+  backoffLimit: 0
