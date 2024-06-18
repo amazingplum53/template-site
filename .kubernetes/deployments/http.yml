@@ -19,7 +19,7 @@ spec:
       - name: http
         image: amazingplum/docker_compose-nginx
         command: ["bash", "-c"]
-        args: ["nginx -c /etc/nginx/https.conf -g 'daemon off;'"]
+        args: ["nginx -c /etc/nginx/http.conf -g 'daemon off;'"]
         ports:
         - containerPort: 80
           protocol: TCP
