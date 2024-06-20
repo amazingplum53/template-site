@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: https
 spec:
-  type: LoadBalancer
   ports:
     - name: "443"
       port: 443

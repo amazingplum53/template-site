@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: http
 spec:
-  type: LoadBalancer
   ports:
     - name: "80"
       port: 80
