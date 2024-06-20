@@ -3,7 +3,7 @@ kind: Gateway
 metadata:
   name: gateway
 spec:
-  gatewayClassName: gateway-instance
+  gatewayClassName: gke-l7-global-external-managed-mc
   listeners:
   - name: http
     protocol: HTTP
