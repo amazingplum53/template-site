@@ -18,7 +18,7 @@ spec:
       initContainers:
       - name: certbot
         image: amazingplum/docker_compose-certbot
-        command: ["bash", "-c"]
+        command: ["bash"]
         args: ["/var/renew.sh"]
         volumeMounts:
         - name: challenge
