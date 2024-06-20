@@ -2,16 +2,15 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: example-job
+  name: certificate-renewal
 spec:
   template:
     metadata:
-      name: example-job
+      name: certbot-challenge
     spec:
       containers:
         - name: certbot
           image: amazingplum/docker_compose-certbot
-          command: ["tail", "-f", "/dev/null"]
           volumeMounts:
             - name: challenge
               mountPath: /var/www/certbot 
