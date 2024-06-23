@@ -1,16 +1,28 @@
 
 services:
-  nginx:
-    image: amazingplum/docker_compose-nginx:latest
+  http:
+    image: amazingplum/docker_compose-http:latest
     build: 
       context: https://github.com/amazingplum53/docker_compose.git#master:.docker
       dockerfile: nginx.dockerfile
     hostname: matthewhill.click
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - encrypt:/letsencrypt
       - challenge:/var/www/certbot
+
+  https:
+    image: amazingplum/docker_compose-https:latest
+    build: 
+      context: https://github.com/amazingplum53/docker_compose.git#master:.docker
+      dockerfile: nginx.dockerfile
+    hostname: matthewhill.click
+    ports:
+      - "443:443"
+    volumes:
+      - encrypt:/letsencrypt
       - static:/static
 
   certbot:

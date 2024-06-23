@@ -27,7 +27,7 @@ spec:
           mountPath: /letsencrypt
       containers:
       - name: https
-        image: amazingplum/docker_compose-nginx
+        image: amazingplum/docker_compose-https
         command: ["bash", "-c"]
         args: ["nginx -c /etc/nginx/https.conf -g 'daemon off;'"]
         ports:
