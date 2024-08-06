@@ -1,11 +1,11 @@
 kind: Gateway
-apiVersion: gateway.networking.k8s.io/v1beta1
+apiVersion: gateway.networking.k8s.io/v1
 metadata:
   name: gateway
 spec:
   gatewayClassName: gke-17-regional-external-managed
   listeners:
-  - name: gateway-pre-shared-certmap
+  - name: port-forward
     protocol: HTTPS
     port: 443
     tls:
@@ -20,15 +20,13 @@ spec:
 
 ---
 
-apiVersion: gateway.networking.k8s.io/v1beta1
+apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: store-external
-  labels:
-    gateway: external-http
+  name: port-forward
 spec:
   parentRefs:
-  - name: external-http
+  - name: gateway
   hostnames:
   - "matthewhill.click"
   rules:
