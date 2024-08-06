@@ -30,6 +30,6 @@ spec:
   hostnames:
   - "matthewhill.click"
   rules:
-    backendRefs:
+  - backendRefs:
     - name: nginx
       port: 80
