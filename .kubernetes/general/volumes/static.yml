@@ -5,7 +5,29 @@ metadata:
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: fixed-size-standard-rwx
+  storageClassName: standard-rwx
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi
+  selector:
+    matchLabels:
+      type: static
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: static
+  labels:
+    type: static
+spec:
+  storageClassName: standard-rwx
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+  csi:
+    driver: filestore.csi.storage.gke.io
