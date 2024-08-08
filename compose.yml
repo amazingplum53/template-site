@@ -1,7 +1,7 @@
 
 services:
   http:
-    image: amazingplum/docker_compose-http:latest
+    image: amazingplum/http:latest
     build: 
       context: https://github.com/amazingplum53/docker_compose.git#master:.docker
       dockerfile: nginx.dockerfile
@@ -9,42 +9,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - encrypt:/letsencrypt
-      - challenge:/var/www/certbot
-
-  https:
-    image: amazingplum/docker_compose-https:latest
-    build: 
-      context: https://github.com/amazingplum53/docker_compose.git#master:.docker
-      dockerfile: nginx.dockerfile
-    hostname: matthewhill.click
-    ports:
-      - "443:443"
-    volumes:
-      - encrypt:/letsencrypt
-      - static:/static
-
-  certbot:
-    image: amazingplum/docker_compose-certbot:latest
-    build: 
-      context: https://github.com/amazingplum53/docker_compose.git#master:.docker
-      dockerfile: certbot.dockerfile
-    volumes:
-      - encrypt:/etc/letsencrypt
-      - challenge:/var/www/certbot  
       
   gunicorn:
-    image: amazingplum/docker_compose-gunicorn:latest
+    image: amazingplum/gunicorn:latest
     build:
       context: https://github.com/amazingplum53/docker_compose.git#master:.docker
       dockerfile: gunicorn.dockerfile
 
-volumes:
-  challenge:
-  encrypt:
-  static: 
-
-#amazingplum/docker_compose-nginx:latest
-#amazingplum/docker_compose-certbot:latest
-#amazingplum/docker_compose-gunicorn:latest
