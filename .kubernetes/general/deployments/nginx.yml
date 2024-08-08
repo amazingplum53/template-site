@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:latest
+        image: amazingplum/nginx:latest
         ports:
         - containerPort: 80
           protocol: TCP

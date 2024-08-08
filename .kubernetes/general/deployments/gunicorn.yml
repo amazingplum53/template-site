@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gunicorn
-        image: amazingplum/docker_compose-gunicorn
+        image: amazingplum/gunicorn:latest
         ports:
         - containerPort: 8001
           protocol: TCP
