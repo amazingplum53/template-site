@@ -2,31 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: https
+  name: http
   labels: 
-    app: https
+    app: http
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: https
+      app: http
   template:
     metadata:
       labels:
-        app: https
+        app: http
     spec:
       containers:
-      - name: https
-        image: amazingplum/docker_compose-https
-        command: ["bash", "-c"]
-        args: ["nginx -c /etc/nginx/http.conf -g 'daemon off;'"]
+      - name: http
+        image: amazingplum/nginx:latest
         ports:
         - containerPort: 80
           protocol: TCP
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "100m"
-          limits:
-            memory: "2Gi"
-            cpu: "1"

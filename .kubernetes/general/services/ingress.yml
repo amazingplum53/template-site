@@ -10,7 +10,7 @@ metadata:
 spec:
   defaultBackend:
     service:
-      name: nginx 
+      name: http 
       port:
         number: 80 
 
