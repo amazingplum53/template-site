@@ -10,8 +10,10 @@ spec:
     matchLabels:
       app: gunicorn
   template:
+    serviceAccountName: test
     metadata:
       labels:
+        namespace: template
         app: gunicorn
     spec:
       containers:
