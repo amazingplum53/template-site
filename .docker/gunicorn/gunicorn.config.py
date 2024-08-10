@@ -37,5 +37,4 @@ def on_starting(server):
 
             print("Environment variables not found. Using local settings.")
 
-    raise Exception(environ)
 
