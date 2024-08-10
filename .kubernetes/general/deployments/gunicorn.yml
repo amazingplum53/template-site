@@ -10,12 +10,12 @@ spec:
     matchLabels:
       app: gunicorn
   template:
-    serviceAccountName: test
     metadata:
       labels:
         namespace: template
         app: gunicorn
     spec:
+      serviceAccountName: test
       containers:
       - name: gunicorn
         image: amazingplum/gunicorn:latest
