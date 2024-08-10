@@ -12,7 +12,6 @@ spec:
   template:
     metadata:
       labels:
-        namespace: template
         app: gunicorn
     spec:
       serviceAccountName: test
