@@ -1,8 +1,8 @@
-from os import environ
+from os import environ as environment
 
 def app(environ, start_response):
 
-    data = f"Hello, World!\n {environ["SECRET_KEY"]}"
+    data = f"Hello, World!\n {environment["SECRET_KEY"]}"
 
     start_response("200 OK", [
         ("Content-Type", "text/plain"),
